@@ -7,6 +7,14 @@ import Head from 'next/head';
 
 ## MRT V3 Changelog
 
+### Version 3.2.1 - 2025-03-02
+
+- Fixed bug where `globalFilter` state was not being updated correctly when using `initialState`
+- Fixed bug where selected row count was not always being updated frequently.
+- Fixed extra pagination out of bounds check sometimes causing an extra re-render.
+- Fixed pinned columns not re-ordering from column management menu
+- Fixed an issue with MRT Filter Text Field slotProps not being applied correctly when an endAdornment was provided
+
 ### Version 3.2.0 - 2025-02-14
 
 - Added language localization support for converting numbers to local string
