@@ -1,6 +1,7 @@
 import { type MRT_ColumnDef, MaterialReactTable } from '../../src';
 import { faker } from '@faker-js/faker';
 import { type Meta } from '@storybook/react';
+import { useState } from 'react';
 
 const meta: Meta = {
   title: 'Features/Search Examples',
@@ -47,6 +48,27 @@ const data = [...Array(200)].map(() => ({
 export const SearchEnabledDefault = () => (
   <MaterialReactTable columns={columns} data={data} />
 );
+
+export const SearchInitialState = () => (
+  <MaterialReactTable
+    columns={columns}
+    data={data}
+    initialState={{ globalFilter: 'John' }}
+  />
+);
+
+export const SearchInitializedState = () => {
+  const [globalFilter, setGlobalFilter] = useState('John');
+
+  return (
+    <MaterialReactTable
+      columns={columns}
+      data={data}
+      state={{ globalFilter }}
+      onGlobalFilterChange={setGlobalFilter}
+    />
+  );
+};
 
 export const SearchContains = () => (
   <MaterialReactTable columns={columns} data={data} globalFilterFn="contains" />
