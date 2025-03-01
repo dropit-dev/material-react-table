@@ -32,7 +32,7 @@ export const MRT_ToggleGlobalFilterButton = <TData extends MRT_RowData>({
     <Tooltip title={rest?.title ?? localization.showHideSearch}>
       <IconButton
         aria-label={rest?.title ?? localization.showHideSearch}
-        disabled={!!globalFilter}
+        disabled={!!globalFilter && showGlobalFilter}
         onClick={handleToggleSearch}
         {...rest}
         title={undefined}
