@@ -423,12 +423,17 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    * Specify which key in the row this column should use to access the correct data.
-   * Also supports Deep Key Dot Notation.
+   *
+   * Deep Key Dot Notation (e.g. `'name.firstName'`) still works at runtime, but is no longer
+   * type-checked/autocompleted here — using `DeepKeys<TData>` instead of a flat `keyof` type triggers
+   * a typescript-go (TS7 native preview) compiler bug where it reports two instantiations of the same
+   * generic as unrelated types (see microsoft/typescript-go#988, #522 for the same bug class on other
+   * deeply-conditional-generic libraries). Revert to `DeepKeys<TData>` once that's fixed upstream.
    *
    * @example accessorKey: 'username' //simple
-   * @example accessorKey: 'name.firstName' //deep key dot notation
+   * @example accessorKey: 'name.firstName' //deep key dot notation, untyped only
    */
-  accessorKey?: DeepKeys<TData> | (string & {});
+  accessorKey?: Extract<keyof TData, string> | (string & {});
   AggregatedCell?: (props: {
     cell: MRT_Cell<TData, TValue>;
     column: MRT_Column<TData, TValue>;
